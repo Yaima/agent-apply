@@ -1,0 +1,75 @@
+# Copy this file to profile.yaml and replace every TODO.
+# Spacing matters: use spaces (never Tab). If an answer contains ":", wrap it in "quotes".
+
+candidate:
+  first_name: TODO
+  last_name: TODO
+  full_name: TODO                  # exactly as it should appear on applications
+  email: TODO
+  phone: "TODO"                    # e.g. "+1 555-555-5555"
+  location: "TODO City, ST, United States"
+  city: TODO
+  state: TODO                      # e.g. California — used for "which state do you reside in"
+  zip: "TODO"
+  country: United States
+  address: null                    # street address; leave null to keep it off forms
+  website: null                    # portfolio URL, or null
+  linkedin: null
+  pronouns: null                   # e.g. "He/Him" — only filled if a form asks
+  over_18: true
+  portfolio_password: null         # only if your portfolio needs one
+  resume_path: resume/YOUR_RESUME.pdf   # any filename/path works; PDF recommended (it's uploaded to forms AND read for résumé-aware matching)
+  cover_letter_path: null
+
+work:
+  current_title: TODO
+  most_recent_employer: TODO
+  prior_employers: [TODO, TODO]    # complete list lets the tool answer "have you worked at X?" honestly
+  years_experience: 0              # the number you want stated
+  background_summary: "TODO one sentence about your specialty"
+  work_authorization: null         # "Yes" if authorized to work in the US; null = route to you
+  requires_sponsorship: null       # true / false; null = route to you
+  salary_expectation: null         # "$XXX,000" or null to decline/leave blank
+  start_in_days: 14                # "when can you start" = today + this many days, computed each run
+  notice_period: null              # leave null to use start_in_days
+  people_management: null          # true / false
+  how_heard: [Company Website]     # boxes to tick on "how did you hear about us"
+
+eeoc:                              # null = "decline to self-identify" wherever offered. NEVER guessed.
+  gender: null
+  hispanic_latino: null
+  race_ethnicity: null             # a single value, or a list like [Hispanic, White]
+  veteran_status: null             # e.g. "not a veteran"
+  disability_status: null          # e.g. "No"
+  transgender: null
+  sexual_orientation: null
+  first_generation: null
+  self_id_misc: null
+
+answers:
+  why_company_template: "TODO: 2-3 sentences in your voice; the AI adapts them per company"
+  design_systems_summary: "TODO: rename for your specialty; a short paragraph about your strongest work"
+  custom:                          # fixed answers for questions that keep appearing.
+    - match: example question phrase     # part of the question, case-insensitive
+      answer: your answer
+
+search:                            # used by discover.py to find roles that fit YOU
+  # Plain words — pick the lines that describe you, delete the rest.
+  # Designer example:
+  roles: [product designer, ux designer, design systems]
+  # Principal engineer example (swap in instead):
+  # roles: [software engineer, security engineer, platform engineer]
+  levels: []                       # e.g. [Senior, Staff, Principal] — strict: titles without a
+                                   # level word are skipped; leave [] to include evergreen postings
+  exclude: [recruiter, intern, sales]
+  near: null                       # default commute area for discover.py --near (LLM matching),
+                                   # e.g. "San Francisco Bay Area" — keeps commutable + Remote roles,
+                                   # drops far metros. null = no location filter unless you pass --near.
+  title_match: null                # advanced: a raw regex here overrides the lists above
+  title_exclude: null
+
+policy:
+  min_confidence: 0.9              # below this, the AI routes the question to you instead of answering
+  max_per_run: 25                  # safety cap on submissions per run
+  human_only_companies: [Anthropic]   # never auto-applied; their policy asks for human-written applications
+  skip_title_patterns: ["(?i)\\bcontract\\b"]      # roles to skip entirely

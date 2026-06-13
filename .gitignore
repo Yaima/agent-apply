@@ -1,0 +1,49 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PRIVATE — never commit. This repo is meant to be public; your data is not.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Secrets (keep the .env.example template)
+.env
+.env.*
+!.env.example
+
+# Your filled-in profile (PII: name, address, phone, EEO, passwords). Keep ONLY the template.
+profile.yaml
+!profile.example.yaml
+
+# Your trackers (personal job data) and Excel lock/temp files
+*.xlsx
+~$*
+*.xls
+*.csv
+
+# Your résumé / cover letters (PII). Folder kept via .gitkeep.
+resume/*
+!resume/.gitkeep
+
+# Documents anywhere (résumés, cover letters, offer letters) — personal; none belong in the repo
+*.pdf
+*.doc
+*.docx
+
+# Run artifacts: screenshots + result JSON (contain application data), tracker backups
+logs/
+backups/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtualenvs (this project has used .venv and a stray path/to/venv)
+.venv/
+venv/
+env/
+path/to/venv/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

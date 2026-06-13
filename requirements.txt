@@ -1,0 +1,5 @@
+playwright>=1.44
+httpx
+openpyxl
+anthropic
+pyyaml
