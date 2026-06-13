@@ -1,4 +1,4 @@
-# agent-apply — auto-apply agent for a job tracker spreadsheet
+# Agent Apply - auto-apply agent for a job tracker spreadsheet
 
 Reads a tracker spreadsheet of job postings, verifies each is still live, fills the
 application from `profile.yaml` (+ your resume PDF), and — in live mode — submits.
@@ -191,3 +191,23 @@ code and the blank `profile.example.yaml` are tracked. Before pushing a fork, sa
 with `git status` that no `.xlsx`, `profile.yaml`, or `.env` is staged. To get a new copy
 going: `cp profile.example.yaml profile.yaml`, fill it in, drop your résumé in `resume/`,
 and set `ANTHROPIC_API_KEY` (in `.env` or your shell).
+
+## Running tests
+Stdlib `unittest`, no extra dependencies — they cover the safety-critical logic (sensitive
+fields are never guessed, a missing résumé routes to a human, dedup, liveness, the
+no-double-apply guard, LLM-no-key fallback):
+
+    python -m unittest discover -s tests -v
+
+## Contributing
+Contributions welcome — bug reports, new ATS fetchers, and form-mapping improvements
+especially. `develop` is the default branch; open a pull request against it (direct pushes
+to `main`/`develop` are protected). Please:
+- Run `python -m unittest discover -s tests` and add tests for new logic.
+- Keep the **non-negotiables** intact: a human reviews and submits every live application
+  (no autonomous submit path), the tool never guesses EEO/work-auth/sponsorship/salary, and
+  it never tries to defeat CAPTCHAs or bot detection.
+- Keep all personal data out of commits (`profile.yaml`, `.env`, `*.xlsx`, `resume/`, `logs/`).
+
+## License
+[MIT](LICENSE) — © 2026 Yaima Valdivia. Use it, fork it, help someone land their next role.

@@ -48,6 +48,12 @@ def _wd_sites(tenant):
 # Salesforce 2026-06: every request returns the full unfiltered list). Route to --urls.
 JS_GATED = {"salesforce": "careers.salesforce.com filters only via a bot-guarded JS API"}
 
+def jobid(u):
+    """The job id from a posting URL = the LAST 6+ digit run (not a board/segment id).
+    Used for dedup, scoped to a company so ids never collide across employers."""
+    ids = re.findall(r"(\d{6,})", str(u))
+    return ids[-1] if ids else None
+
 async def fetch_apple(client, query, location, max_pages):
     """jobs.apple.com — server-rendered cards; location honored via URL slug."""
     slug = APPLE_LOC.get((location or "").strip().lower())
@@ -234,9 +240,6 @@ async def main():
         for c in range(1, 18): sh.cell(1, c).font = Font(bold=True)
         for col, w in {"B":18,"C":46,"F":22,"J":22,"K":60,"L":26,"M":22}.items():
             sh.column_dimensions[col].width = w
-    def jobid(u):
-        ids = re.findall(r"(\d{6,})", str(u))
-        return ids[-1] if ids else None     # last long number = the job id (not a board/segment id)
     seen_urls, seen_ids = set(), set()       # full URLs + (company, job-id) — id scoped to company
     def is_dup(company, url):
         return url in seen_urls or (jobid(url) and (str(company).strip().lower(), jobid(url)) in seen_ids)
